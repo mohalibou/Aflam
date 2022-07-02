@@ -1,4 +1,4 @@
-# Tipster
+# Aflam
 
 A movie database app where you can search for movies, as well as view trending and upcoming movies.
 
