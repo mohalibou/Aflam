@@ -10,7 +10,7 @@ import Foundation
 final class NetworkManager {
     
     static let shared = NetworkManager()
-    let apiKey = "MY_API_KEY"
+    let apiKey = "API_KEY"
     
     private init() {}
     
