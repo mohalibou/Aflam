@@ -23,10 +23,14 @@ struct MoviesScrollView: View {
             }
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
-                    ForEach(movies, id: \.id) { movie in
-                        NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
-                            PosterView(movie: movie)
-                        }.buttonStyle(PlainButtonStyle())
+                    if (movies.count != 0) {
+                        ForEach(movies, id: \.id) { movie in
+                            NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
+                                PosterView(movie: movie)
+                            }.buttonStyle(PlainButtonStyle())
+                        }
+                    } else {
+                        PosterView(movie: Result(id: 0, title: "", poster_path: ""))
                     }
                 }
                 .padding(.leading)
@@ -36,8 +40,8 @@ struct MoviesScrollView: View {
         .padding(.top)
         .task {
             do {
-                if (movieListType == "Popular Movies") {
-                    movies = try await NetworkManager.shared.fetchPopularMovies()
+                if (movieListType == "Trending Movies") {
+                    movies = try await NetworkManager.shared.fetchTrendingMovies()
                 } else if (movieListType == "Upcoming Movies") {
                     movies = try await NetworkManager.shared.fetchUpcomingMovies()
                 }

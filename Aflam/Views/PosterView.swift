@@ -9,11 +9,11 @@ import SwiftUI
 
 struct PosterView: View {
     
-    var movie: Result?
+    var movie: Result
     
     var body: some View {
         VStack(spacing: 0) {
-            AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w1280" + movie!.poster_path),
+            AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w1280" + (movie.poster_path ?? "")),
                        content: { image in
                             image.resizable()
                                  .scaledToFill()
@@ -26,7 +26,7 @@ struct PosterView: View {
                                         .cornerRadius(10, corners: [.topLeft, .topRight]) })
             VStack {
                 HStack {
-                    Text(movie!.title)
+                    Text(movie.title)
                         .padding(10)
                         .font(.headline)
                         .multilineTextAlignment(.leading)

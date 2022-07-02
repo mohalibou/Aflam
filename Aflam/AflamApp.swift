@@ -11,7 +11,7 @@ import SwiftUI
 struct AflamApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            AppTabView()
         }
     }
 }

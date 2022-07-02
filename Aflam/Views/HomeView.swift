@@ -16,7 +16,7 @@ struct HomeView: View {
         NavigationView {
             VStack {
                 ScrollView {
-                    MoviesScrollView(movies: $popularMovies, movieListType: "Popular Movies")
+                    MoviesScrollView(movies: $popularMovies, movieListType: "Trending Movies")
                     MoviesScrollView(movies: $upcomingMovies, movieListType: "Upcoming Movies")
                 }
             }

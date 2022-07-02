@@ -10,7 +10,7 @@ import Foundation
 struct Result: Codable {
     let id: Int
     let title: String
-    let poster_path: String
+    let poster_path: String?
     
     static var preview = Result(id: 69,
                                 title: "Popular Movie",

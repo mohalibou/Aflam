@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct MovieDetailView: View {
-    
+struct MovieDetailView: View {    
     var movieID: Int
     @State private var movie: Movie?
     @State private var recommendedMovies = [Result]()
@@ -19,22 +18,28 @@ struct MovieDetailView: View {
                 HStack {
                     AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w1280" + (movie?.poster_path ?? "")),
                                content: { image in
-                        image.resizable()
-                            .scaledToFill()
-                            .frame(width: 160, height: 240)
-                            .cornerRadius(10)
-                    },
+                                   image.resizable()
+                                        .scaledToFill()
+                                        .frame(width: 160, height: 240)
+                                        .cornerRadius(10)
+                               },
                                placeholder: { ProgressView()
-                            .frame(width: 160, height: 240)
-                            .background(Color.gray)
-                        .cornerRadius(10) })
+                                                .frame(width: 160, height: 240)
+                                                .background(Color.gray)
+                                                .cornerRadius(10) })
                     VStack(alignment: .leading, spacing: 10) {
                         Text(movie?.title ?? "")
                             .font(.title2)
                             .fontWeight(.bold)
-                        Text("\(movie?.runtime ?? 0) minutes")
+                        Text("Movie Length: ")
                             .foregroundColor(.secondary)
-                        Text("Released \(movie?.release_date ?? "")")
+                            .font(.caption)
+                        + Text("\(movie?.runtime ?? 0) minutes")
+                            .foregroundColor(.secondary)
+                        Text("Release Date: ")
+                            .foregroundColor(.secondary)
+                            .font(.caption)
+                        + Text("\(movie?.release_date ?? "")")
                             .foregroundColor(.secondary)
                         VoterScoreView(voteAverage: movie?.vote_average ?? 0.0)
                         Spacer()
@@ -43,10 +48,8 @@ struct MovieDetailView: View {
                     Spacer()
                 }
                 .padding()
-                
                 SynopsisView(synopsis: movie?.overview ?? "")
                 MoviesScrollView(movies: $recommendedMovies, movieListType: "Recommended Movies")
-                
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -83,21 +86,24 @@ struct VoterScoreView: View {
     }
     
     var body: some View {
-        ZStack {
-            color
-                .opacity(0.2)
-            VStack(spacing: 10) {
-                Text("Voter Score")
-                    .foregroundColor(color)
-                    .fontWeight(.bold)
-                Text("\(voteAverage, specifier: "%.1f")")
-                    .foregroundColor(color)
-                    .fontWeight(.bold)
-                    .font(.title)
+        if (voteAverage != 0) {
+            ZStack {
+                color
+                    .opacity(0.2)
+                VStack(spacing: 10) {
+                    
+                    Text("Voter Score")
+                        .foregroundColor(color)
+                        .fontWeight(.bold)
+                    Text("\(voteAverage, specifier: "%.1f")")
+                        .foregroundColor(color)
+                        .fontWeight(.bold)
+                        .font(.title)
+                }
             }
+            .frame(maxWidth: 190, maxHeight: 100)
+            .cornerRadius(10)
         }
-        .frame(width: 190, height: 100)
-        .cornerRadius(10)
     }
 }
 
