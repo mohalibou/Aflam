@@ -30,7 +30,7 @@ struct SearchView: View {
     
     func search() async {
         do {
-            movies = try await NetworkManager.shared.fetchMoviesSearch(search: searchText)
+            movies = try await NetworkManager.shared.fetchMoviesSearch(search: searchText.replacingOccurrences(of: " ", with: "%20"))
         } catch {
             print("error")
         }
